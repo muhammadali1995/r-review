@@ -1,16 +1,20 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors');
-const mongoose = require('mongoose');
-const PORT = 4000;
+const cors = require("cors");
+const userRouter = require("./routers/user");
 
-
+require("./db/mongoose");
 
 app.use(cors());
+app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/restaurant-review', { useNewUrlParser: true });
-const connection = mongoose.connection;
+app.use(userRouter);
 
-app.listen(PORT, function() {
-    console.log("Server is running on Port: " + PORT);
+const PORT = process.env.PORT | 4000;
+app.listen(PORT, function () {
+  console.log("Server is running on Port: " + PORT);
+});
+
+app.get("/", (req, res) => {
+  res.send("Api is running");
 });
