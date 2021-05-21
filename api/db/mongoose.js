@@ -1,6 +1,8 @@
 const mongoose  = require('mongoose');
+require('dotenv').config();
+const MONGODB_URI = ""
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/restaurant-review", {
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.ilxk8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority` || "localhost", {
   useNewUrlParser: true,
   useCreateIndex: true,
 });
