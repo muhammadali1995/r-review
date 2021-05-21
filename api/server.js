@@ -2,8 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const userRouter = require("./routers/user");
-require('dotenv').config()
-
 require("./db/mongoose");
 
 app.use(cors());
@@ -16,6 +14,7 @@ const PORT = process.env.PORT | 4000;
 app.listen(PORT, function () {
   console.log("Server is running on Port: " + PORT);
 });
+
 
 app.get("/", (req, res) => {
   res.send("Api is running");
