@@ -5,10 +5,10 @@ export const MySelect = ({ label, ...props }) => {
 
   return (
     <>
-      <label htmlFor={props.id || props.name}>{label}</label>
+      <label className="mt-2" htmlFor={props.id || props.name}>{label}</label>
       <select {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="alert alert-danger">{meta.error}</div>
+        <div className="alert alert-danger mt-1">{meta.error}</div>
       ) : null}
     </>
   );
