@@ -6,3 +6,7 @@ mongoose.connect(`mongodb+srv://admin:4377433mt@cluster0.ilxk8.mongodb.net/myFir
   useNewUrlParser: true,
   useCreateIndex: true,
 });
+
+mongoose.connection.on('connected', () => {
+  console.log("mongose connected");
+})
