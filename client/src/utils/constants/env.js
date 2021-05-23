@@ -1,3 +1,3 @@
 export const ENV = {
-    api: 'https://r-review-app.herokuapp.com'
+    apiUrl: 'https://r-review-app.herokuapp.com'
 }

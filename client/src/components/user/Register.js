@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import { Roles } from "../../utils/constants/roles";
 import axios from "axios";
 import { ENV } from "../../utils/constants/env";
@@ -6,31 +6,14 @@ import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { Error } from "../error/Error";
-import { MyTextInput } from "../form-fields/text-input";
-import { MySelect } from "../form-fields/select";
+import { MyTextInput } from "../form-fields/TextInput";
+import { MySelect } from "../form-fields/Select";
 
-const ApiUrl = `${ENV.api}/users`;
-
-const formReducer = (state, event) => {
-  if (event.reset) {
-    return {
-      name: "",
-      email: "",
-      password: "",
-      role: "",
-    };
-  }
-
-  return {
-    ...state,
-    [event.name]: event.value,
-  };
-};
+const ApiUrl = `${ENV.apiUrl}/users`;
 
 export const RegisterUserForm = (props) => {
   const history = useHistory();
 
-  const [formData, setFormData] = useReducer(formReducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -40,33 +23,12 @@ export const RegisterUserForm = (props) => {
     </option>
   ));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    axios.post(ApiUrl, formData).then(
-      (res) => {
-        setSubmitting(false);
-        history.push("/login");
-      },
-      (error) => {
-        setSubmitting(false);
-      }
-    );
-  };
-
-  const handleInputChange = (event) => {
-    setFormData({
-      name: event.target.name,
-      value: event.target.value,
-    });
-  };
-
   const cancel = () => {
     history.push("/");
   };
 
   return (
-    <div className="col col-md-6 offset-md-3">
+    <div className="col col-md-6 offset-md-3 mt-5">
       <h1>Sign up</h1>
       {error ? <Error message={error} /> : ""}
       <Formik
@@ -94,16 +56,16 @@ export const RegisterUserForm = (props) => {
             .oneOf(["user", "owner"], null)
             .required("Roles is required"),
         })}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values) => {
+          setSubmitting(true);
           axios.post(ApiUrl, values).then(
             (res) => {
               setSubmitting(false);
               history.push("/login");
             },
-            (error) =>{ 
-              console.log(error);
-              setError(error)
-              }
+            (error) => {
+              setError(error);
+            }
           );
         }}
       >
@@ -141,10 +103,17 @@ export const RegisterUserForm = (props) => {
             placeholder="Confirm password"
           />
           <div className="d-flex justify-content-between mt-3">
-            <button className="btn btn-outline-secondary flex-grow-1" onClick={cancel}>
+            <button
+              className="btn btn-outline-secondary flex-grow-1"
+              onClick={cancel}
+            >
               Cancel
             </button>
-            <button disabled={submitting} className="btn btn-outline-primary ms-5 flex-grow-1" type="submit">
+            <button
+              disabled={submitting}
+              className="btn btn-outline-primary ms-5 flex-grow-1"
+              type="submit"
+            >
               Register
             </button>
           </div>
