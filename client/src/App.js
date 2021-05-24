@@ -28,8 +28,10 @@ axios.interceptors.request.use(
 );
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const value = {currentUser, setCurrentUser};
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
+  const value = { currentUser, setCurrentUser };
   useEffect(() => {
     let user = localStorage.getItem("user");
     if (user) {
@@ -44,6 +46,8 @@ function App() {
           <Header />
         </header>
         <Switch>
+          <Route path="/" exact component={SearchRestaurants}></Route>
+          
           {!currentUser ? (
             <>
               <Route path="/register" component={RegisterUserForm}></Route>
@@ -57,8 +61,6 @@ function App() {
           ) : (
             ""
           )}
-
-          <Route path="/" exact component={SearchRestaurants}></Route>
         </Switch>
       </div>
     </userContext.Provider>
