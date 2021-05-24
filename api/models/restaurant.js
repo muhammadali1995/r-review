@@ -26,14 +26,12 @@ const restaurantSchema = new mongoose.Schema({
     type: String,
     required: false,
     validate(value) {
-      if (!validator.isUrl(value)) {
+      if (!validator.isURL(value)) {
         throw new Error("photoUrl should be a url");
       }
     },
   },
 });
-
-
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
 

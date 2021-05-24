@@ -1,15 +1,13 @@
-import { Link } from "react-router-dom"
-
-export const SearchRestaurants = () => {
+export const SearchRestaurants = ({ onSearch }) => {
+  const onChange = (e) => {
+    onSearch(e.target.value);
+  };
   return (
-    <div className="mt-4">
-      <div className="d-flex justify-content-between">
-        <h3 className="header text-success">My Restaurants</h3>
-        <Link to="/create" className="btn btn-outline-success">Add new restaurant</Link>
-      </div>
-      <ul>
-        <li>Restaurant 1</li>
-      </ul>
-    </div>
+    <input
+      placeholder="Search Restaurants"
+      type="text"
+      className="form-control"
+      onChange={onChange}
+    />
   );
 };

@@ -16,7 +16,7 @@ app.use(express.json());
 
 
 app.use(userRouter);
-app.use(restaurantRouter);
+app.use(restaurantRouter)
 app.use(swaggerRouter);
 
 const PORT = process.env.PORT || 5000;

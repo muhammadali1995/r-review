@@ -1,14 +1,14 @@
 import axios from "axios";
 import { ENV } from "../../utils/constants/env";
 
-const apiURL = ENV.apiUrl;
+const apiURL = `${ENV.development.apiUrl}/restaurants`;
 
 const create = (data) => {
   return axios.post(apiURL, data);
 };
 
-const getAll = () => {
-  return axios.get(apiURL);
+const getAll = (searchText) => {
+  return axios.get(apiURL, {params: {searchText: searchText}});
 };
 
 const get = (id) => axios.get(apiURL, { params: { id } });

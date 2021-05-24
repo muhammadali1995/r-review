@@ -1,3 +1,8 @@
 export const ENV = {
-    apiUrl: 'https://r-review-app.herokuapp.com'
-}
+  prod: {
+    apiUrl: "https://r-review-app.herokuapp.com",
+  },
+  development: {
+    apiUrl: "http://localhost:5000",
+  },
+};

@@ -7,9 +7,12 @@ import React from "react";
 import { RestautantAPI } from "./RestaurantAPI";
 import { useState } from "react";
 import { Error } from "../error/Error";
+import { useHistory } from "react-router";
 
 export const CreateRestaurant = () => {
   const [error, setError] = useState("");
+
+  const history = useHistory();
 
   return (
     <>
@@ -39,6 +42,7 @@ export const CreateRestaurant = () => {
             setSubmitting(true);
             try {
               await RestautantAPI.create(values);
+              history.goBack();
             } catch (error) {
               setError(error);
             } finally {

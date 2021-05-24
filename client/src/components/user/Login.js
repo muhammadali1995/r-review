@@ -10,11 +10,11 @@ import { userContext } from "../../context/UserContext";
 
 export const LoginForm = () => {
   const [submitting, setSubmitting] = useState(false);
-  const {setCurrentUser} = useContext(userContext);
+  const { setCurrentUser } = useContext(userContext);
   const [error, setError] = useState("");
   const history = useHistory();
 
-  const apiUrl = `${ENV.apiUrl}/users/login`;
+  const apiUrl = `${ENV.prod.apiUrl}/users/login`;
 
   const onCancel = () => {
     history.push("/");
@@ -40,6 +40,7 @@ export const LoginForm = () => {
             (res) => {
               setSubmitting(false);
               localStorage.setItem("user", JSON.stringify(res.data.user));
+              localStorage.setItem("token", res.data.token);
               setCurrentUser(res.data.user);
               history.push("/");
             },

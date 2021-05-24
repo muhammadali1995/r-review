@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch } from "react-router-dom";
 import { Header } from "./components/Header";
-import { SearchRestaurants } from "./components/restaurant/Search";
 import { CreateRestaurant } from "./components/restaurant/Create";
 import { RegisterUserForm } from "./components/user/Register";
 import { LoginForm } from "./components/user/Login";
@@ -11,11 +10,12 @@ import { ENV } from "./utils/constants/env";
 import { userContext } from "./context/UserContext";
 import { useEffect, useState } from "react";
 import { isAdmin, isOwner } from "./roles";
+import { Restaurants } from "./components/restaurant/Restaurants";
 
 axios.interceptors.request.use(
   (config) => {
     const { origin } = new URL(config.url);
-    const allowedOrigins = [ENV.apiURL];
+    const allowedOrigins = [ENV.prod.apiUrl, ENV.development.apiUrl];
     const token = localStorage.getItem("token");
     if (allowedOrigins.includes(origin)) {
       config.headers.authorization = `Bearer ${token}`;
@@ -46,8 +46,8 @@ function App() {
           <Header />
         </header>
         <Switch>
-          <Route path="/" exact component={SearchRestaurants}></Route>
-          
+          <Route path="/" exact component={Restaurants}></Route>
+
           {!currentUser ? (
             <>
               <Route path="/register" component={RegisterUserForm}></Route>

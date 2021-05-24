@@ -1,10 +1,11 @@
 const express = require("express");
 const router = new express.Router();
-const auth = require("../middleware/auth");
-const verify = require("../middleware/verify");
 const Restaurant = require("../models/restaurant");
 
-router.post("restaurants", [auth, verify("owner")], async (req, res) => {
+const auth = require("../middleware/auth");
+const verify = require("../middleware/verify");
+
+router.post("/restaurants", [auth, verify], async (req, res) => {
   const restaurant = new Restaurant(req.body);
   restaurant
     .save()
@@ -15,8 +16,7 @@ router.post("restaurants", [auth, verify("owner")], async (req, res) => {
       res.status(400).send(e);
     });
 });
-
-router.get("restaurants", (req, res) => {
+router.get("/restaurants", (req, res) => {
   Restaurant.find({})
     .then((restaurants) => {
       res.send(restaurants);

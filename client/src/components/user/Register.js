@@ -9,7 +9,7 @@ import { Error } from "../error/Error";
 import { MyTextInput } from "../form-fields/TextInput";
 import { MySelect } from "../form-fields/Select";
 
-const ApiUrl = `${ENV.apiUrl}/users`;
+const ApiUrl = `${ENV.prod.apiUrl}/users`;
 
 export const RegisterUserForm = (props) => {
   const history = useHistory();
