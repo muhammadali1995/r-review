@@ -1,11 +1,19 @@
 const express = require("express");
 const router = new express.Router();
 const auth = require("../middleware/auth");
-
+const verify = require("../middleware/verify");
 const Restaurant = require("../models/restaurant");
 
-router.post("restaurants", auth, async(req, res) => {
-    
+router.post("restaurants", [auth, verify("owner")], async (req, res) => {
+  const restaurant = new Restaurant(req.body);
+  restaurant
+    .save()
+    .then(() => {
+      res.status(201).send(restaurant);
+    })
+    .catch((e) => {
+      res.status(400).send(e);
+    });
 });
 
 router.get("restaurants", (req, res) => {
@@ -17,4 +25,5 @@ router.get("restaurants", (req, res) => {
       res.status(500).send(error);
     });
 });
+
 module.exports = router;
