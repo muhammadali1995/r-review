@@ -14,7 +14,7 @@ export function Header() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-silver">
+    <nav className="navbar navbar-expand-lg px-3" style={{backgroundColor: "rgb(230 219 205)"}}>
       <>
         <NavLink to="/" className="navbar-brand">
           RR
@@ -30,8 +30,7 @@ export function Header() {
                 <NavLink
                   to="/users"
                   activeClassName="active border-bottom text-primary"
-                  className="nav-link"
-                >
+                  className="nav-link">
                   Users
                 </NavLink>
               </li>

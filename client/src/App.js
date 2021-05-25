@@ -1,5 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 import { Route, Switch } from "react-router-dom";
 import { Header } from "./components/Header";
 import { CreateRestaurant } from "./components/restaurant/Create";
@@ -11,6 +13,7 @@ import { userContext } from "./context/UserContext";
 import { useEffect, useState } from "react";
 import { isAdmin, isOwner } from "./roles";
 import { Restaurants } from "./components/restaurant/Restaurants";
+import { ViewRestaurant } from "./components/restaurant/View";
 
 axios.interceptors.request.use(
   (config) => {
@@ -56,7 +59,7 @@ function App() {
           ) : isAdmin(currentUser) || isOwner(currentUser) ? (
             <>
               <Route path="/create" component={CreateRestaurant}></Route>
-              <Route path="/hello">Hello</Route>{" "}
+              <Route path="/restaurants/:id" component={ViewRestaurant}></Route>
             </>
           ) : (
             ""
