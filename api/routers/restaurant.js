@@ -4,8 +4,9 @@ const Restaurant = require("../models/restaurant");
 
 const auth = require("../middleware/auth");
 const verify = require("../middleware/verify");
+const Roles  = require("../models/roles");
 
-router.post("/restaurants", [auth, verify], async (req, res) => {
+router.post("/restaurants", [auth, verify(Roles.OWNER, Roles.ADMIN)], async (req, res) => {
   const restaurant = new Restaurant(req.body);
   restaurant
     .save()
