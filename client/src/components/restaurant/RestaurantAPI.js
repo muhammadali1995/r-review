@@ -8,10 +8,10 @@ const create = (data) => {
 };
 
 const getAll = (searchText) => {
-  return axios.get(apiURL, {params: {searchText: searchText}});
+  return axios.get(apiURL, { params: { searchText: searchText } });
 };
 
-const get = (id) => axios.get(apiURL, { params: { id } });
+const get = (id) => axios.get(`${apiURL}/${id}`);
 
 const remove = (id) => axios.delete(apiURL, { params: { id } });
 
